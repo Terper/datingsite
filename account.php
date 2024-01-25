@@ -82,7 +82,7 @@ if (isset($_FILES["profilePicture"]) && isset($_POST["uploadPicture"]) && $_POST
                 }
                 ?>
                 <label for="profilePicture">Select a picture to upload</label>
-                <input type="file" name="profilePicture" id="profilePicture" accept=".jpg,.png">
+                <input type="file" name="profilePicture" id="profilePicture" accept=".jpg,.png" required>
                 <input type="submit" value="Upload picture" name="uploadPicture">
             </form>
         </div>
