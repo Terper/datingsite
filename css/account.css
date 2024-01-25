@@ -1,0 +1,41 @@
+.logout {
+  padding: 1rem;
+}
+
+form {
+  display: flex;
+  padding: 1rem;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: fit-content;
+}
+
+h2 {
+  margin: 0;
+}
+
+section {
+  padding: 1rem;
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+}
+
+.previousProfilePictures {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  max-width: 30rem;
+}
+
+.previousProfilePictures > img {
+  border: 1px solid black;
+}
+
+.previousProfilePictures > img.current {
+  border-color: #00ff00;
+}
+
+.error {
+  color: #ff0000;
+}

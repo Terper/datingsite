@@ -1,0 +1,23 @@
+.greeting {
+  padding: 1rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  max-width: fit-content;
+}
+
+.switch {
+  padding: 1rem;
+}
+
+h2 {
+  margin: 0;
+}
+
+.error {
+  color: #ff0000;
+}

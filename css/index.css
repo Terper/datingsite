@@ -1,0 +1,67 @@
+.nextDateForm {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 0.5rem;
+  padding: 1rem;
+  margin-left: 1rem;
+  background-color: #00000010;
+  max-width: fit-content;
+}
+
+.nextDateForm .error {
+  color: red;
+}
+
+.nextDate {
+  padding: 1rem;
+}
+
+section {
+  padding: 1rem;
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+}
+
+h2 {
+  margin: 0;
+}
+
+.comments {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid #000000;
+  gap: 1rem;
+  max-width: 70ch;
+}
+
+.comment:nth-child(even) {
+  background-color: #00000010;
+}
+
+.comments > div {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.commentHeader {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+}
+
+.commentForm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: fit-content;
+}
+
+.commentForm > div {
+  display: flex;
+  gap: 0.5rem;
+}
