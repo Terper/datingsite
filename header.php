@@ -7,7 +7,8 @@ $profilePicture;
 if (isset($_SESSION["username"]) && !isset($_SESSION["profilePicture"])) {
 
     // grabs every profile picture with the username
-    $allProfilePictures = glob("uploads/" . $_SESSION["username"] . "*.jpg") + glob("uploads/" . $_SESSION["username"] . "*.png");
+    $allProfilePictures = glob("uploads/" . $_SESSION["username"] . "-*.{png,jpg}", GLOB_BRACE);
+    asort($allProfilePictures);
     // chooses the last profile picture, which is the newest
     // if no profile pictures exist assign the default one
     if (count($allProfilePictures) > 0) {

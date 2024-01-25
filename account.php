@@ -7,7 +7,8 @@ if (!isset($_SESSION["username"])) {
     die();
 }
 // gets all previous profile pictures
-$previousProfilePictures = glob("uploads/" . $_SESSION["username"] . "*.jpg") + glob("uploads/" . $_SESSION["username"] . "*.png");
+$previousProfilePictures = glob("uploads/" . $_SESSION["username"] . "-*.{png,jpg}", GLOB_BRACE);
+asort($previousProfilePictures);
 
 $error;
 $errorMessages = [
@@ -41,7 +42,7 @@ if (isset($_FILES["profilePicture"]) && isset($_POST["uploadPicture"]) && $_POST
             break;
         }
         // creates a new filename, counts the current amount if profile pictures to get a higher number for the name
-        $fileName = $_SESSION["username"] . count($previousProfilePictures) . "." . $fileType;
+        $fileName = $_SESSION["username"] . "-" . count($previousProfilePictures) . "." . $fileType;
         $newProfilePicture = "uploads/" . $fileName;
 
         // move file and check if it went ok
