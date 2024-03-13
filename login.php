@@ -1,6 +1,7 @@
 <?php
 
 require_once "firstVisitCookie.php";
+include_once "db.php";
 
 session_start();
 if (isset($_SESSION["username"])) {
@@ -19,6 +20,7 @@ $password;
 $error;
 $errorMessages = [
     "The inputted values are invalid",
+    "The username or password is incorrect",
 ];
 
 // filters username input
@@ -42,13 +44,26 @@ if (isset($_POST["password"])) {
         $error = 0;
         unset($password);
     }
+
 }
 
 if (isset($username) && isset($password) && !isset($error)) {
-    // valid username and password continue to sign in logic with back-end
-    $_SESSION["username"] = $username;
-    header("location: index.php");
-    die();
+
+    $result = mysqli_query($db, "SELECT * FROM users WHERE username = '$username'");
+    if (mysqli_num_rows($result) === 0) {
+        $error = 1;
+    } else {
+        $user = mysqli_fetch_assoc($result);
+        if (password_verify($password, $user["password"])) {
+            $_SESSION["username"] = $username;
+            $_SESSION["id"] = $user["id"];
+            $_SESSION["registered"] = $user["registered"];
+            header("location: index.php");
+            die();
+        }else {
+            $error = 1;
+        }
+    }
 }
 
 

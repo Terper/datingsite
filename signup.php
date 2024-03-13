@@ -1,6 +1,7 @@
 <?php
 
 require_once "firstVisitCookie.php";
+include_once "db.php";
 
 session_start();
 if (isset($_SESSION["username"])) {
@@ -14,12 +15,9 @@ $error;
 $errorMessages = [
     "The inputted values are invalid",
     "The username is already in use, please choose another",
-    "The email is already in use, please choose another"
-];
-$mailStatus;
-$mailMessages = [
-    "An email has been sent with your password",
-    "Unable to send you an email with your password, please try again"
+    "The email is already in use, please choose another",
+    "The passwords do not match",
+    "Something went wrong, please try again later",
 ];
 
 // filters username input
@@ -27,6 +25,11 @@ if (isset($_POST["username"])) {
     $username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_SPECIAL_CHARS);
     if (!$username) {
         $error = 0;
+        unset($username);
+    }
+    $result = mysqli_query($db, "SELECT * FROM users WHERE username = '$username'");
+    if (mysqli_num_rows($result) > 0){
+        $error = 1;
         unset($username);
     }
 }
@@ -38,22 +41,43 @@ if (isset($_POST["email"])) {
         $error = 0;
         unset($email);
     }
+    $result = mysqli_query($db, "SELECT * FROM users WHERE email = '$email'");
+    if (mysqli_num_rows($result) > 0){
+        $error = 2;
+        unset($email);
+    }
 }
 
-if (isset($username) && isset($email)) {
-    // email and usernames are valid
-    // generates a random cryptographically secure password
-    // https://www.php.net/manual/en/function.openssl-random-pseudo-bytes.php
-    $password = bin2hex(openssl_random_pseudo_bytes(4));
-    // generates the mail
-    $mailMessage = "Your password is: $password";
-    $mail = mail($email, "Password", $mailMessage);
+// filters password input
+if (isset($_POST["password"]) && isset($_POST["confirmPassword"])) {
+    $password = filter_input(INPUT_POST, "password", FILTER_SANITIZE_SPECIAL_CHARS);
+    $confirmPassword = filter_input(INPUT_POST, "confirmPassword", FILTER_SANITIZE_SPECIAL_CHARS);
+    if (strlen($password) < 8) {
+        $error = 0;
+        unset($password);
+        unset($confirmPassword);
+    }
+    if ($password !== $confirmPassword) {
+        $error = 3;
+        unset($password);
+        unset($confirmPassword);
+    }
 
-    // checks if the mail was sucessfully sent
-    if ($mail) {
-        $mailStatus = 0;
+}
+
+if (isset($username) && isset($email) && isset($password)) {
+    // email and usernames are valid and password match
+    $password = password_hash($password, PASSWORD_DEFAULT);
+    $query = "INSERT INTO users (username, email, password) VALUES ('$username', '$email', '$password')";
+    if (mysqli_query($db, $query)) {
+        $_SESSION["username"] = $username;
+        $query = "SELECT id FROM users WHERE username = '$username'";
+        $_SESSION["id"] = mysqli_fetch_assoc(mysqli_query($db, $query))["id"];
+        $_SESSION["registered"] = 0;
+        header("location: index.php");
+        die();
     } else {
-        $mailStatus = 1;
+        $error = 4;
     }
 }
 
@@ -74,11 +98,6 @@ if (isset($username) && isset($email)) {
 <body>
     <?php include "header.php"; ?>
     <main>
-        <?php if (isset($mailStatus)) {
-            print("<div class='mailStatus'>");
-            print($mailMessages[$mailStatus]);
-            print("</div>");
-        } ?>
         <form method="post">
             <h2>Sign up</h2>
             <?php isset($error) ? print("<div class='error'>" . $errorMessages[$error] . "</div>") : "" ?>
@@ -86,6 +105,10 @@ if (isset($username) && isset($email)) {
             <input type="text" id="username" name="username" value="<?php isset($_POST["username"]) ? print(htmlspecialchars($_POST["username"])) : "" ?>" required>
             <label for="email">Email</label>
             <input type="email" id="email" name="email" value="<?php isset($_POST["email"]) ? print(htmlspecialchars($_POST["email"])) : "" ?>" required>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required minlength="8">
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required minlength="8">
             <input type="submit" value="Sign Up">
         </form>
         <div class="switch">Already have an account? <a href="login.php">Log in.</a>
