@@ -76,6 +76,7 @@ if (isset($_FILES["profilePicture"]) && isset($_POST["uploadPicture"]) && $_POST
     <?php include "header.php"; ?>
     <main>
         <a href="logout.php" class="logout">Log out</a>
+        <a href="register.php"><?php if ($_SESSION["registered"] == 0 ) {print("Register");} else {print("Update registration");}?></a>
         <div>
             <form method="post" enctype="multipart/form-data" class="profilePictureForm">
                 <?php if (isset($error)) {
