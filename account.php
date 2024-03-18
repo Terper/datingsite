@@ -75,8 +75,21 @@ if (isset($_FILES["profilePicture"]) && isset($_POST["uploadPicture"]) && $_POST
 <body>
     <?php include "header.php"; ?>
     <main>
-        <a href="logout.php" class="logout">Log out</a>
-        <a href="register.php"><?php if ($_SESSION["registered"] == 0 ) {print("Register");} else {print("Update registration");}?></a>
+        <div class="links">
+            <a href="advert.php?u=<?php print($_SESSION["id"]); ?>">Your advert</a>
+            <a href="logout.php">Log out</a>
+            <a href="register.php"><?php if ($_SESSION["registered"] == 0 ) {print("Register");} else {print("Update registration");}?></a>
+            <a href="delete.php">Delete account</a>
+
+            <?php
+                if ($_SESSION["role"] == "administrator") {
+                    print("<a href='administrator.php'>Administrator</a>");
+                }
+                if ($_SESSION["role"] == "moderator" || $_SESSION["role"] == "administrator") {
+                    print("<a href='moderator.php'>Moderator</a>");
+                }
+            ?>
+        </div>
         <div>
             <form method="post" enctype="multipart/form-data" class="profilePictureForm">
                 <?php if (isset($error)) {

@@ -101,6 +101,9 @@ if (file_exists("comments")) {
             <input type="submit" value="Submit">
         </form>
         <section>
+            <a href="adverts.php"><h2>Dating adverts</h2></a>
+        </section>
+        <section>
             <h2>Comments</h2>
             <?php
             if (isset($_SESSION["username"])) {

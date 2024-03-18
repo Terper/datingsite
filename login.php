@@ -58,6 +58,7 @@ if (isset($username) && isset($password) && !isset($error)) {
             $_SESSION["username"] = $username;
             $_SESSION["id"] = $user["id"];
             $_SESSION["registered"] = $user["registered"];
+            $_SESSION["role"] = $user["role"];
             header("location: index.php");
             die();
         }else {

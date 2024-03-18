@@ -1,0 +1,15 @@
+form {
+  display: flex;
+  padding: 1rem;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: fit-content;
+}
+
+h2 {
+  margin: 0;
+}
+
+.error {
+  color: red;
+}
