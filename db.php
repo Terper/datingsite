@@ -1,11 +1,12 @@
 <?php
+include_once "../../../secret.php";
 
-$env = "dev";
+$env = "";
 $db;
 
 if ($env === "dev") {
   $db = mysqli_connect("localhost", "root", "", "datingsite");
 } else {
-  $db = mysqli_connect("localhost", "", "", "");
+  $db = mysqli_connect($server, $username, $password, $server);
 }
 
