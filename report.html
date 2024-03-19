@@ -31,27 +31,21 @@
     <h3>Konton</h3>
     <table>
       <tr>
-        <th>Role</th>
-        <th>Username</th>
-        <th>Password</th>
+        <th>Roll</th>
+        <th>Användarnamn</th>
+        <th>Lösenord</th>
       </tr>
       <tr>
-        <td>Admin</td>
+        <td>Administrator</td>
         <td>administrator</td>
         <td>Abcd1234</td>
       </tr>
       <tr>
-        <td>Mod</td>
+        <td>Moderator</td>
         <td>moderator</td>
         <td>Abcd1234</td>
       </tr>
     </table>
-    <h2>Förkunskaper</h2>
-    <p>
-      PHP var typ det första spårket jag lärde mig, att laga liknande sidor var
-      hur jag lärde mig att programmera. Det var dock ungefär 5-6 år sedan så
-      det tog ett litet tag att igen bli bekväm med hur man bäst använder PHP.
-    </p>
     <h2>Inlärningsprocess</h2>
     <p>
       Jag deltog inte i några lektioner men min kunskaper i PHP var tillräckliga
@@ -70,11 +64,21 @@
         >dbdiagram.io</a
       >. Det gick bra att komma in i flödet av koden igen tack vara
       kommentarerna jag hade skrivit på de ställen jag behövde modifiera den
-      befintliga koden så som login och registrerings sidan. Den här gången hade
-      jag inte riktigt någon motivation att skriva kommentarer eller helt fixa
-      error hanteringen perfekt eller stylingen då jag inte anser att det här är
-      något som jag skulle vilja ha i ett portfolio, en datingsida är lite
-      opassiglt enligt mig.
+      befintliga koden så som login och registrerings sidan.
+    </p>
+    <p>
+      Jag blev lite osäker på hur jag skulle göra med gilla funktionen med
+      databasen. För jag vill ju kunna få ut hur många gillningar en användare
+      har fått, men jag hade inte riktigt lust att skriva en query med en join
+      på det stället. Jag hittade möjligheten att man kan ha triggers i
+      databasen. Jag skapade då 2 triggers, en som plussar på gillningarna
+      värdet i users tabellen när en ny rad skapas i likes tabellen och en som
+      sedan tar minus när en rad tas bort. Jag tycker att det var en bra lösning
+      på problemet, som jag inte hade tänkt på innan. Det blir mindre kod i PHP
+      och det blir mer effektivt att hämta gillningarna från databasen. Jag vet
+      dock inte om ni gick igenom triggers i föreläsningarna så jag kanske bara
+      gjorde något som egentligen är ganska vanligt. Fick inte reda på triggers
+      i föreläsningarna på Högskolan På Åland iallfall.
     </p>
     <h2>Reflektion</h2>
     <p>
@@ -87,6 +91,16 @@
       projekt utan att vi bara skulle bygga vidare på det vi redan hade, helst
       skulle jag ha börjat från början med projekt 2 men jag hade inte riktigt
       tid att hinna med det.
+    </p>
+    <p>
+      Den här gången hade jag inte riktigt någon motivation att skriva
+      kommentarer eller helt fixa error hanteringen perfekt eller stylingen då
+      jag inte anser att det här är något som jag skulle vilja ha i ett
+      portfolio, en datingsida är lite opassiglt enligt mig. Dessutom så började
+      jag lite sent med projektet så jag hade inte riktigt tid att göra allt
+      perfekt. Det skall dock sägas att jag har lärt mig mycket av att göra det
+      här projektet och jag är nöjd med resultatet då allt det viktigaste
+      fungerar. Jag försökte dock att minimera möjligheten att göra något fel.
     </p>
     <img src="./db.png" alt="Bild på db diagram" />
   </body>
